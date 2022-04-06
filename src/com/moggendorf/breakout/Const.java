@@ -10,6 +10,8 @@ public class Const {
     public static final long UPDATE_THREAD_SLEEP = 5;
     public static final long REPAINT_THREAD_SLEEP = 20;
 
+    // resource
+    public static final String PATH_TO_RESOURCES = "resource/levels.txt";
 
     // ImageCache
     public static final String IMAGE_PATH = "images";

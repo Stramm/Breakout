@@ -9,8 +9,6 @@ import com.moggendorf.breakout.sprites.Brick;
 import com.moggendorf.breakout.sprites.Paddle;
 
 import java.awt.event.MouseAdapter;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class GameCanvas extends AbstractGameCanvas {
@@ -26,12 +24,17 @@ public class GameCanvas extends AbstractGameCanvas {
     }
 
     private void initLevelLoader() {
+        levelLoader = new LevelLoader();
+/*
         // init levelLoader
+        // getResource does not work inside jars -> throws exceptions... getResourceAsStream works, returns an
+        // InputStream
         try {
             levelLoader = new LevelLoader(Paths.get(getClass().getResource("resource/levels.txt").toURI()));
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
+*/
     }
 
     // from here on init initiated from start button

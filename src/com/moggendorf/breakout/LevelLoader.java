@@ -2,27 +2,28 @@ package com.moggendorf.breakout;
 
 import com.moggendorf.breakout.sprites.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LevelLoader {
-    private Path levels;
     private double speed;
     private double angle;
 
-    public LevelLoader(Path levels) {
-        this.levels = levels;
-    }
-
     public Brick[][] getLevel(int level) {
         int loadLevel = level == Const.LEVELS ? Const.LEVELS : level % Const.LEVELS; // for 20 level
-        List<String> allLevels;
-        try {
-            allLevels = Files.readAllLines(levels);
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe);
+
+        List<String> allLevels = new ArrayList<>();
+        try (InputStream in = getClass().getResourceAsStream(Const.PATH_TO_RESOURCES);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+
+            while (reader.ready())
+                allLevels.add(reader.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         for (int i = 0; i < allLevels.size(); i++) {
@@ -30,7 +31,7 @@ public class LevelLoader {
                 angle = Double.parseDouble(allLevels.get(i + 1).split(":")[1].trim());
                 speed = Double.parseDouble(allLevels.get(i + 2).split(":")[1].trim());
                 int startLine = i + 4;
-                while(!allLevels.get(i).startsWith("***"))
+                while (!allLevels.get(i).startsWith("***"))
                     i++;
                 int endLine = i - 1;
 
