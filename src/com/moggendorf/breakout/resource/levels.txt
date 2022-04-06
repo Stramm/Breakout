@@ -1,0 +1,47 @@
+# there has to be a line Level: with a number
+# from that line + 2 the field starts and it ends with the next *** -1 line
+# b, g, l. o, p, r, w, y sets a brick. Each brick is followed by a special (not yet implemented)
+# there have to be 13 bricks, no brick is a dot .
+# G and S are bricks that need more than one hit. G is undestroyable and des not give points and is not counted as brick
+# to remove. S needs two hits to get destroyed.
+
+
+*************************************
+Level: 1
+Angle: 45
+Speed: 2.0
+
+..........................
+..........................
+..........................
+r.r.r.r.r.r.r.r.r.r.r.r.r.
+p.p.p.p.p.p.p.p.p.p.p.p.p.
+g...g...g...g...g...g...g.
+b.b.b.b.b.b.b.b.b.b.b.b.b.
+o.o.o.o.o.o.o.o.o.o.o.o.o.
+w.w.w.w.w.w.w.w.w.w.w.w.w.
+
+
+....r.r.r.r.r.r.r.r.r.....
+....y.y.y.y.y.y.y.y.y.....
+
+*************************************
+Level: 2
+Angle: 45
+Speed: 2.0
+
+..........................
+..........................
+..........................
+r.r.r.r.r.r.r.r.r.r.r.r.r.
+p.p.p.p.p.p.p.p.p.p.p.p.p.
+g...g...g...g...g...g...g.
+b.b.b.b.b.b.b.b.b.b.b.b.b.
+o.o.o.o.o.o.o.o.o.o.o.o.o.
+w.......................w.
+..y.y.y.y.y.y.y.y.y.y.y...
+....r.r.r.r.r.r.r.r.r.....
+......b.b.b.b.b.b.b.......
+........l.l.l.l.l.........
+
+*************************************
