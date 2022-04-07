@@ -8,6 +8,7 @@ import com.moggendorf.breakout.sprites.Ball;
 import com.moggendorf.breakout.sprites.Brick;
 import com.moggendorf.breakout.sprites.Paddle;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.util.HashMap;
 
@@ -16,6 +17,7 @@ public class GameCanvas extends AbstractGameCanvas {
     private int currentLevel;
     private MouseAdapter paddlePlayListener;
     private MouseAdapter paddleStartListener;
+    private boolean levelStarted;
 
 
     public GameCanvas(StartPage startPage) {
@@ -25,16 +27,6 @@ public class GameCanvas extends AbstractGameCanvas {
 
     private void initLevelLoader() {
         levelLoader = new LevelLoader(this);
-/*
-        // init levelLoader
-        // getResource does not work inside jars -> throws exceptions... getResourceAsStream works, returns an
-        // InputStream
-        try {
-            levelLoader = new LevelLoader(Paths.get(getClass().getResource("resource/levels.txt").toURI()));
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-*/
     }
 
     // from here on init initiated from start button
@@ -111,6 +103,8 @@ public class GameCanvas extends AbstractGameCanvas {
     }
 
     public void startNextLevel() {
+        // set to false, when the ball is released, levelStarted is set to true (in listener)
+        levelStarted = false;
         setBricks(levelLoader.getLevel(++currentLevel));
         // get the number of bricks in that level
         int numBricks = 0;
@@ -135,11 +129,36 @@ public class GameCanvas extends AbstractGameCanvas {
         }
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        // call the paintComponent method of the AbstractGameCanvas first (bricks, paddle, ball)
+        super.paintComponent(g);
+        // here just draw additional info like current level before the ball is moving
+        if (!levelStarted) {
+            g.setColor(Const.SCORE_COLOR);
+            g.setFont(Const.ROUND_FONT);
+            FontMetrics fm = g.getFontMetrics();
+            String line1 = "Round " + getCurrentLevel();
+            String line2 = "Ready!";
+            int y = Const.SHOW_ROUND_Y;
+            g.drawString(line1, (getWidth() - fm.stringWidth(line1)) / 2, y);
+            g.drawString(line2, ((getWidth() - fm.stringWidth(line2)) / 2), y + fm.getHeight());
+        }
+    }
+
     public int getCurrentLevel() {
         return currentLevel;
     }
 
     public void setCurrentLevel(int currentLevel) {
         this.currentLevel = currentLevel;
+    }
+
+    public boolean isLevelStarted() {
+        return levelStarted;
+    }
+
+    public void setLevelStarted(boolean levelStarted) {
+        this.levelStarted = levelStarted;
     }
 }

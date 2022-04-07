@@ -38,6 +38,8 @@ public class Const {
     public final static int NUM_CONTACTS_TO_INCREASE_SPEED = 25;
     public final static double INCREASE_SPEED_BY = .05;
     public final static double MAX_SPEED = 6;
+    public final static Font ROUND_FONT = new Font("SansSerif", Font.ITALIC & Font.BOLD, 40);
+    public final static int SHOW_ROUND_Y = 500;
 
     // score
     public final static Font SCORE_FONT = new Font("SansSerif", Font.ITALIC & Font.BOLD, 22);
