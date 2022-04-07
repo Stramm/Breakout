@@ -16,7 +16,7 @@ public class Const {
     // ImageCache
     public static final String IMAGE_PATH = "images";
     public static String[] IMAGE_NAMES = new String[]{"paddle", "ball", "logo", "brickBlue", "brickGreen", "brickLightBlue", "brickOrange",
-            "brickPurple", "brickRed", "brickWhite", "brickYellow"};
+            "brickPurple", "brickRed", "brickWhite", "brickYellow", "brickSilver", "brickGold"};
 
     // Button init
     public final static Dimension BUTTON_DIMENSION = new Dimension(200, 60);
@@ -34,7 +34,7 @@ public class Const {
     public static final int Y_MARGIN = 65;
     public static final Color FIELD_BACK_COLOR = new Color(2, 3, 59);
     public final static int LIVES = 3;
-    public final static int LEVELS = 2;
+    public final static int LEVELS = 3;
     public final static int NUM_CONTACTS_TO_INCREASE_SPEED = 25;
     public final static double INCREASE_SPEED_BY = .05;
     public final static double MAX_SPEED = 6;

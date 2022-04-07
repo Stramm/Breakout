@@ -12,15 +12,24 @@ public class PaddlePlayListener extends MouseAdapter {
     public PaddlePlayListener(AbstractImageSprite paddle) {
         this.paddle = paddle;
     }
+
     @Override
     public void mouseMoved(MouseEvent e) {
+        mouseDragMove(e);
 
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        mouseDragMove(e);
+    }
+
+    private void mouseDragMove(MouseEvent e) {
         paddle.setX(e.getX() - paddle.getWidth() / 2);
 
         if (paddle.getX() < Const.EDGE_WIDTH)
             paddle.setX(0);
         else if (paddle.getX() > Const.FRAME_WIDTH - 2 * Const.EDGE_WIDTH - paddle.getWidth())
             paddle.setX(Const.FRAME_WIDTH - 2 * Const.EDGE_WIDTH - paddle.getWidth());
-
     }
 }

@@ -24,7 +24,7 @@ public class GameCanvas extends AbstractGameCanvas {
     }
 
     private void initLevelLoader() {
-        levelLoader = new LevelLoader();
+        levelLoader = new LevelLoader(this);
 /*
         // init levelLoader
         // getResource does not work inside jars -> throws exceptions... getResourceAsStream works, returns an
@@ -135,4 +135,11 @@ public class GameCanvas extends AbstractGameCanvas {
         }
     }
 
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
 }

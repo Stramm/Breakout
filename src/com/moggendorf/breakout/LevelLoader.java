@@ -13,6 +13,12 @@ public class LevelLoader {
     private double speed;
     private double angle;
 
+    private GameCanvas gameCanvas;
+
+    public LevelLoader(GameCanvas gameCanvas) {
+        this.gameCanvas = gameCanvas;
+    }
+
     public Brick[][] getLevel(int level) {
         int loadLevel = level == Const.LEVELS ? Const.LEVELS : level % Const.LEVELS; // for 20 level
 
@@ -79,10 +85,10 @@ public class LevelLoader {
                         brick = new BrickYellow();
                         break;
                     case 'S': // silver tile
-
+                        brick = new BrickSilver(gameCanvas.getCurrentLevel());
                         break;
                     case 'G': // gold tile
-
+                        brick = new BrickGold();
                         break;
 
                 } // end switch
