@@ -11,10 +11,8 @@ public class BigPaddlePowerUp extends AbstractPowerUp {
     }
 
     private void init() {
-        Paddle paddle = (Paddle) getGameCanvas().getSprites().get("paddle");
+        Paddle paddle = getGameCanvas().getPaddle();
         paddle.setWidth(200);
         paddle.setImage(ImageCache.getImage("bigPaddle"));
-
-
     }
 }

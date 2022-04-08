@@ -3,6 +3,8 @@ package com.moggendorf.breakout.sprites;
 import com.moggendorf.breakout.Const;
 import com.moggendorf.breakout.GameCanvas;
 import com.moggendorf.breakout.ImageCache;
+import com.moggendorf.breakout.powerups.BigPaddlePowerUp;
+import com.moggendorf.breakout.powerups.Power;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -23,7 +25,7 @@ public class Ball extends AbstractImageSprite {
     public void init() {
         setImage(ImageCache.getImage("ball"));
         setMovable(false);
-        setVisible(true);
+        setVisible(false);
         setHeight(18);
         setWidth(18);
     }
@@ -69,6 +71,7 @@ public class Ball extends AbstractImageSprite {
             // ball lost, next ball if any
             gameCanvas.resetSprites();
             gameCanvas.setStartListener();
+            gameCanvas.getBooster().clear();
         }
 
         if (getX() < 0 || getX() > Const.FRAME_WIDTH - 2 * Const.EDGE_WIDTH - getWidth()) {
@@ -91,7 +94,7 @@ public class Ball extends AbstractImageSprite {
 
     private void checkPaddleCollision() {
         Ellipse2D ballShape = new Ellipse2D.Double(getX(), getY(), getWidth(), getHeight());
-        AbstractImageSprite paddle = gameCanvas.getSprites().get("paddle");
+        Paddle paddle = gameCanvas.getPaddle();
         Rectangle2D paddleShape = new Rectangle2D.Double(paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight());
 
         if (ballShape.intersects(paddleShape)) {
@@ -140,6 +143,8 @@ public class Ball extends AbstractImageSprite {
                         gameCanvas.setScore(gameCanvas.getScore() + brick.getPoints());
                         gameCanvas.setBricksLeft(gameCanvas.getBricksLeft() - 1);
                         gameCanvas.checkLevelEnd();
+                        // check if brick contains a powerUp and in case handle it
+                        dropPowerUp(brick);
                     }
                     // now examine further
                     if (brickShape.contains(top) || brickShape.contains(bottom)) {
@@ -152,6 +157,44 @@ public class Ball extends AbstractImageSprite {
             }
         }
     }
+
+    public void dropPowerUp(Brick brick) {
+        // handle powerups
+        if (brick.getPower() != Power.DEFAULT) {
+            // prepared for dropping several but the original game only allowed one powerUp to drop at a
+            // time... so I clear the list if a new drops.
+            gameCanvas.getBooster().clear();
+            System.out.println(brick.getPower());
+            Booster booster = null;
+            switch (brick.getPower()) {
+                case SLOW :
+                    break;
+                case LASER:
+                    break;
+                case EXTRA_LIVE:
+                    booster = new BoosterExtraLife(gameCanvas);
+                    break;
+                case BOTTOM_WALL:
+                    break;
+                case TRIPLE_BALL:
+                    break;
+                case REDUCED_PADDLE:
+                    break;
+                case ENLARGED_PADDLE:
+                    booster = new BoosterEnlargedPaddle(gameCanvas);
+                    break;
+
+            }
+            if (booster != null) {
+                booster.init(brick);
+                gameCanvas.setScore(gameCanvas.getScore() + booster.getPoints());
+                gameCanvas.getBooster().add(booster);
+                System.out.println(gameCanvas.getBooster().get(0));
+
+            }
+        }
+    }
+
 
     public void setAngle(double angle) {
         this.angle = angle;

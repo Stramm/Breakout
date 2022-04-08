@@ -1,5 +1,6 @@
 package com.moggendorf.breakout;
 
+import com.moggendorf.breakout.powerups.Power;
 import com.moggendorf.breakout.sprites.*;
 
 import java.io.BufferedReader;
@@ -97,7 +98,7 @@ public class LevelLoader {
                     brick.setX(charPos / 2 * 48);
                     brick.setY(y * 24);
                     // the next line defines a special... we now save the Brick and set its special if appropriate
-                    setSpecial(line, charPos + 1);
+                    setSpecial(brick,line, charPos + 1);
                 }
                 bricks[y][charPos / 2] = brick;
                 // advance
@@ -107,10 +108,31 @@ public class LevelLoader {
         return bricks;
     }
 
-    private void setSpecial(String line, int pos) {
+    private void setSpecial(Brick brick, String line, int pos) {
         switch(line.charAt(pos)) {
-            case ' ' :
+            case 'P':
+                brick.setPower(Power.EXTRA_LIVE); // red
                 break;
+            case 'D':
+                brick.setPower(Power.TRIPLE_BALL); // cyan todo
+                break;
+            case 'S':
+                brick.setPower(Power.SLOW); // orange todo
+                break;
+            case 'L':
+                brick.setPower(Power.LASER); // silver todo
+                break;
+            case 'E':
+                brick.setPower(Power.ENLARGED_PADDLE); // blue
+                break;
+            case 'M':
+                brick.setPower(Power.REDUCED_PADDLE); // black todo
+                break;
+            case 'W':
+                brick.setPower(Power.BOTTOM_WALL); // gray todo
+                break;
+            default:
+                brick.setPower(Power.DEFAULT);
         }
     }
 

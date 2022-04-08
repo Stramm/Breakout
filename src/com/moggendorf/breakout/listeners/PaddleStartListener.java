@@ -15,8 +15,8 @@ public class PaddleStartListener extends MouseAdapter {
 
     public PaddleStartListener(GameCanvas gameCanvas) {
         this.gameCanvas = gameCanvas;
-        ball = (Ball) gameCanvas.getSprites().get("ball");
-        paddle = (Paddle) gameCanvas.getSprites().get("paddle");
+        ball = gameCanvas.getBalls()[0];
+        paddle = gameCanvas.getPaddle();
 
     }
     @Override

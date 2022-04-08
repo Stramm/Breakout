@@ -1,8 +1,11 @@
 package com.moggendorf.breakout.sprites;
 
+import com.moggendorf.breakout.powerups.Power;
+
 public class Brick extends AbstractImageSprite {
     private int points;
     private int hits;
+    private Power power;
 
     public Brick() {}
 
@@ -46,5 +49,13 @@ public class Brick extends AbstractImageSprite {
 
     public void setHits(int hits) {
         this.hits = hits;
+    }
+
+    public Power getPower() {
+        return power;
+    }
+
+    public void setPower(Power power) {
+        this.power = power;
     }
 }

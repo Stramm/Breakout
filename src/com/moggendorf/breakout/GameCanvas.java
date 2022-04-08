@@ -4,17 +4,17 @@ package com.moggendorf.breakout;
 import com.moggendorf.breakout.listeners.PaddlePlayListener;
 import com.moggendorf.breakout.listeners.PaddleStartListener;
 import com.moggendorf.breakout.powerups.*;
-import com.moggendorf.breakout.sprites.AbstractImageSprite;
 import com.moggendorf.breakout.sprites.Ball;
 import com.moggendorf.breakout.sprites.Brick;
 import com.moggendorf.breakout.sprites.Paddle;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
-import java.util.HashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameCanvas extends AbstractGameCanvas {
     private LevelLoader levelLoader;
+    private HookFactory hookFactory;
     private int currentLevel;
     private MouseAdapter paddlePlayListener;
     private MouseAdapter paddleStartListener;
@@ -24,11 +24,12 @@ public class GameCanvas extends AbstractGameCanvas {
 
     public GameCanvas(StartPage startPage) {
         super(startPage);
-        initLevelLoader();
+        initComponents();
     }
 
-    private void initLevelLoader() {
+    private void initComponents() {
         levelLoader = new LevelLoader(this);
+        hookFactory = new HookFactory(this);
     }
 
     // from here on init initiated from start button
@@ -39,25 +40,28 @@ public class GameCanvas extends AbstractGameCanvas {
         setScore(0);
         setLives(Const.LIVES);
 
+        initSprites(); // ball and paddle and booster list
         startNextLevel(); // load level, init bricks
-        initSprites(); // ball and paddle
         resetSprites(); // set ball and paddle to default values, decrease lives, calculate angle and speed of the ball
         initListener(); // listener
         setStartListener(); // set the drag & release listener to be able to fire the ball
     }
 
     private void initListener() {
-        paddlePlayListener = new PaddlePlayListener(getSprites().get("paddle"));
+        paddlePlayListener = new PaddlePlayListener(getPaddle());
         paddleStartListener = new PaddleStartListener(this);
     }
 
     private void initSprites() {
         // create ball, paddle and a map that holds them (and maybe drops)
-        setSprites(new HashMap<>());
+        setPaddle(new Paddle(this));
 
-        getSprites().put("paddle", new Paddle());
-        getSprites().put("ball", new Ball(this));
+        setBalls(new Ball[Const.MAX_BALLS]);
+        for (int i = 0; i < Const.MAX_BALLS; i++) {
+            getBalls()[i] = new Ball(this);
+        }
 
+        setBooster(new CopyOnWriteArrayList<>());
     }
 
     // set back sprite settings to initial values
@@ -71,20 +75,26 @@ public class GameCanvas extends AbstractGameCanvas {
         setLives(getLives() - 1);
 
         // set ball and paddle to initial start values
-        AbstractImageSprite paddle = getSprites().get("paddle");
+        Paddle paddle = getPaddle();
         paddle.init();
         paddle.setX((getWidth() - paddle.getWidth()) / 2.);
         paddle.setY(getHeight() - Const.Y_MARGIN);
 
-        Ball ball = (Ball) getSprites().get("ball");
-        ball.init();
-        ball.setX((getWidth() - ball.getWidth()) / 2.);
-        ball.setY(getHeight() - Const.Y_MARGIN - ball.getHeight()); // set above paddle
-        // and set speed and angle for the ball
-        ball.setSpeed(levelLoader.getSpeed());
-        ball.setAngle(levelLoader.getAngle());
-        ball.setContacts(0);
-        ball.calcDxDy();
+        // set up the balls with some initial values, for the normal play we use 0, when powerUp, 1 and 2
+        // then we set 1, 2 to visible and new x, y, dx, dy
+        for (int i = 0; i < Const.MAX_BALLS; i++) {
+            Ball ball = getBalls()[i];
+            ball.init();
+            ball.setX((getWidth() - ball.getWidth()) / 2.);
+            ball.setY(getHeight() - Const.Y_MARGIN - ball.getHeight()); // set above paddle
+            // and set speed and angle for the ball
+            ball.setSpeed(levelLoader.getSpeed());
+            ball.setAngle(levelLoader.getAngle());
+            ball.calcDxDy();
+        }
+        getBalls()[0].setContacts(0);
+        getBalls()[0].setVisible(true);
+
     }
 
     public void setStartListener() {
@@ -176,5 +186,13 @@ public class GameCanvas extends AbstractGameCanvas {
 
     public void setHook(PowerUp hook) {
         this.hook = hook;
+    }
+
+    public HookFactory getHookFactory() {
+        return hookFactory;
+    }
+
+    public void setHookFactory(HookFactory hookFactory) {
+        this.hookFactory = hookFactory;
     }
 }

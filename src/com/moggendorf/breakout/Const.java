@@ -4,6 +4,7 @@ import java.awt.*;
 
 public class Const {
 
+
     private Const() {}
 
     // threads
@@ -15,8 +16,12 @@ public class Const {
 
     // ImageCache
     public static final String IMAGE_PATH = "images";
-    public static String[] IMAGE_NAMES = new String[]{"paddle", "bigPaddle", "smallPaddle", "ball", "logo", "brickBlue", "brickGreen", "brickLightBlue", "brickOrange",
-            "brickPurple", "brickRed", "brickWhite", "brickYellow", "brickSilver", "brickGold"};
+    public static String[] IMAGE_NAMES = new String[] {
+            "paddle", "bigPaddle", "smallPaddle", "ball", "logo", // paddle and ball
+            "brickBlue", "brickGreen", "brickLightBlue", "brickOrange", "brickPurple", "brickRed", "brickWhite",
+            "brickYellow", "brickSilver", "brickGold", // all the bricks
+            "powerUpExtraLive", "powerUpEnlargePaddle" // the powerUps
+    };
 
     // Button init
     public final static Dimension BUTTON_DIMENSION = new Dimension(200, 60);
@@ -35,6 +40,8 @@ public class Const {
     public static final Color FIELD_BACK_COLOR = new Color(2, 3, 59);
     public final static int LIVES = 3;
     public final static int LEVELS = 3;
+    public static final int MAX_BALLS = 3; // max balls in the field when using power ups
+    public static final double POWER_UP_DROP_SPEED = .4;
     public final static int NUM_CONTACTS_TO_INCREASE_SPEED = 25;
     public final static double INCREASE_SPEED_BY = .05;
     public final static double MAX_SPEED = 6;

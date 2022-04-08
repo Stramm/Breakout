@@ -1,19 +1,25 @@
 package com.moggendorf.breakout;
 
-import com.moggendorf.breakout.sprites.AbstractImageSprite;
+import com.moggendorf.breakout.sprites.Ball;
+import com.moggendorf.breakout.sprites.Booster;
 import com.moggendorf.breakout.sprites.Brick;
+import com.moggendorf.breakout.sprites.Paddle;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.Map;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class AbstractGameCanvas extends JPanel {
     private StartPage startPage;
     private int lives;
     private Brick[][] bricks;
-    private Map<String, AbstractImageSprite> sprites;
+    private Paddle paddle;
+    private Ball[] balls;
+    private CopyOnWriteArrayList<Booster> booster;
     private int bricksLeft;
     private Thread repaintThread;
     private Thread updateThread;
@@ -66,10 +72,20 @@ public abstract class AbstractGameCanvas extends JPanel {
     }
 
     protected void updateComponents() {
-        for (AbstractImageSprite sprite : sprites.values()) {
-            if (sprite.isVisible() && sprite.isMovable()) {
-                sprite.update();
+        for (Booster boost : booster) {
+            if (boost.isVisible() && boost.isMovable()) {
+                boost.update();
             }
+        }
+
+        for (Ball ball : balls) {
+            if (ball.isVisible() && ball.isMovable()) {
+                ball.update();
+            }
+        }
+
+        if (paddle.isVisible() && paddle.isMovable()) {
+            paddle.update();
         }
     }
 
@@ -77,6 +93,12 @@ public abstract class AbstractGameCanvas extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        for (Booster boost : booster) {
+            if (boost.isVisible()) {
+                boost.paint(g2);
+            }
+        }
 
         for (Brick[] row : bricks) {
             for (Brick brick : row) {
@@ -86,10 +108,14 @@ public abstract class AbstractGameCanvas extends JPanel {
             }
         }
 
-        for (AbstractImageSprite sprite : sprites.values()) {
-            if (sprite.isVisible()) {
-                sprite.paint(g2);
+        for (Ball ball : balls) {
+            if (ball.isVisible()) {
+                ball.paint(g2);
             }
+        }
+
+        if (paddle.isVisible()) {
+            paddle.paint(g2);
         }
 
         drawLives(g2);
@@ -112,15 +138,15 @@ public abstract class AbstractGameCanvas extends JPanel {
     }
 
     private void drawLives(Graphics2D g2) {
-        AbstractImageSprite paddle = getSprites().get("paddle");
-        int yPos = getHeight() - (int) (paddle.getHeight() * Const.LIVE_IMAGE_SCALE) - Const.EDGE_WIDTH;
+        BufferedImage paddleImage = ImageCache.getImage("paddle"); // even when powerUps are in use draw the default paddle
+        int yPos = getHeight() - (int) (paddleImage.getHeight() * Const.LIVE_IMAGE_SCALE) - Const.EDGE_WIDTH;
         for (int i = 0; i < lives; i++) {
-            int x = (int) (i * paddle.getWidth() * Const.LIVE_IMAGE_SCALE);
-            g2.drawImage(paddle.getImage(),
+            int x = (int) (i * paddleImage.getWidth() * Const.LIVE_IMAGE_SCALE);
+            g2.drawImage(paddleImage,
                     x,
                     yPos,
-                    (int) (paddle.getWidth() * Const.LIVE_IMAGE_SCALE),
-                    (int) (paddle.getHeight() * Const.LIVE_IMAGE_SCALE),
+                    (int) (paddleImage.getWidth() * Const.LIVE_IMAGE_SCALE),
+                    (int) (paddleImage.getHeight() * Const.LIVE_IMAGE_SCALE),
                     null);
         }
     }
@@ -203,14 +229,6 @@ public abstract class AbstractGameCanvas extends JPanel {
         this.bricks = bricks;
     }
 
-    public Map<String, AbstractImageSprite> getSprites() {
-        return sprites;
-    }
-
-    public void setSprites(Map<String, AbstractImageSprite> sprites) {
-        this.sprites = sprites;
-    }
-
     public int getBricksLeft() {
         return bricksLeft;
     }
@@ -227,7 +245,6 @@ public abstract class AbstractGameCanvas extends JPanel {
         this.score = score;
     }
 
-
     public int getLives() {
         return lives;
     }
@@ -240,4 +257,27 @@ public abstract class AbstractGameCanvas extends JPanel {
         return startPage;
     }
 
+    public Ball[] getBalls() {
+        return balls;
+    }
+
+    public void setBalls(Ball[] balls) {
+        this.balls = balls;
+    }
+
+    public Paddle getPaddle() {
+        return paddle;
+    }
+
+    public void setPaddle(Paddle paddle) {
+        this.paddle = paddle;
+    }
+
+    public CopyOnWriteArrayList<Booster> getBooster() {
+        return booster;
+    }
+
+    public void setBooster(CopyOnWriteArrayList<Booster> booster) {
+        this.booster = booster;
+    }
 }
