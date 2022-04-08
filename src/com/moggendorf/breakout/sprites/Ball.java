@@ -13,7 +13,7 @@ public class Ball extends AbstractImageSprite {
     private GameCanvas gameCanvas;
     private double angle;
     private double speed;
-    private int contacts; // ball hitting wall, brick or the paddle
+    private static int contacts; // ball hitting wall, brick or the paddle, static cause we may use more several balls
 
     public Ball(GameCanvas gameCanvas) {
         this.gameCanvas = gameCanvas;
@@ -34,6 +34,7 @@ public class Ball extends AbstractImageSprite {
         checkWallCollision();
         checkPaddleCollision();
         checkBrickCollision();
+        checkHook();
         checkIncreaseSpeed();
     }
 
@@ -69,11 +70,18 @@ public class Ball extends AbstractImageSprite {
             gameCanvas.resetSprites();
             gameCanvas.setStartListener();
         }
+
         if (getX() < 0 || getX() > Const.FRAME_WIDTH - 2 * Const.EDGE_WIDTH - getWidth()) {
             setDx(-getDx());
             contacts++;
             moveBall();
         }
+
+    }
+
+    // the powerUp interceptor, do eventual additonal checking for powerUps here
+    public void checkHook() {
+        gameCanvas.getHook().hookBallWall(this);
     }
 
     public void moveBall() {

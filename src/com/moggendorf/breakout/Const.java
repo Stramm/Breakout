@@ -15,7 +15,7 @@ public class Const {
 
     // ImageCache
     public static final String IMAGE_PATH = "images";
-    public static String[] IMAGE_NAMES = new String[]{"paddle", "ball", "logo", "brickBlue", "brickGreen", "brickLightBlue", "brickOrange",
+    public static String[] IMAGE_NAMES = new String[]{"paddle", "bigPaddle", "smallPaddle", "ball", "logo", "brickBlue", "brickGreen", "brickLightBlue", "brickOrange",
             "brickPurple", "brickRed", "brickWhite", "brickYellow", "brickSilver", "brickGold"};
 
     // Button init

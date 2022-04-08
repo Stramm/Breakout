@@ -3,6 +3,7 @@ package com.moggendorf.breakout;
 
 import com.moggendorf.breakout.listeners.PaddlePlayListener;
 import com.moggendorf.breakout.listeners.PaddleStartListener;
+import com.moggendorf.breakout.powerups.*;
 import com.moggendorf.breakout.sprites.AbstractImageSprite;
 import com.moggendorf.breakout.sprites.Ball;
 import com.moggendorf.breakout.sprites.Brick;
@@ -18,6 +19,7 @@ public class GameCanvas extends AbstractGameCanvas {
     private MouseAdapter paddlePlayListener;
     private MouseAdapter paddleStartListener;
     private boolean levelStarted;
+    private PowerUp hook;
 
 
     public GameCanvas(StartPage startPage) {
@@ -103,6 +105,8 @@ public class GameCanvas extends AbstractGameCanvas {
     }
 
     public void startNextLevel() {
+        // when starting we assign no powerUp
+        hook = new NoPowerUp(this);
         // set to false, when the ball is released, levelStarted is set to true (in listener)
         levelStarted = false;
         setBricks(levelLoader.getLevel(++currentLevel));
@@ -133,16 +137,20 @@ public class GameCanvas extends AbstractGameCanvas {
     protected void paintComponent(Graphics g) {
         // call the paintComponent method of the AbstractGameCanvas first (bricks, paddle, ball)
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        // the powerUp hook for drawing additional content
+        hook.hookDraw((Graphics2D) g);
+
         // here just draw additional info like current level before the ball is moving
         if (!levelStarted) {
-            g.setColor(Const.SCORE_COLOR);
-            g.setFont(Const.ROUND_FONT);
-            FontMetrics fm = g.getFontMetrics();
+            g2.setColor(Const.SCORE_COLOR);
+            g2.setFont(Const.ROUND_FONT);
+            FontMetrics fm = g2.getFontMetrics();
             String line1 = "Round " + getCurrentLevel();
             String line2 = "Ready!";
             int y = Const.SHOW_ROUND_Y;
-            g.drawString(line1, (getWidth() - fm.stringWidth(line1)) / 2, y);
-            g.drawString(line2, ((getWidth() - fm.stringWidth(line2)) / 2), y + fm.getHeight());
+            g2.drawString(line1, (getWidth() - fm.stringWidth(line1)) / 2, y);
+            g2.drawString(line2, ((getWidth() - fm.stringWidth(line2)) / 2), y + fm.getHeight());
         }
     }
 
@@ -160,5 +168,13 @@ public class GameCanvas extends AbstractGameCanvas {
 
     public void setLevelStarted(boolean levelStarted) {
         this.levelStarted = levelStarted;
+    }
+
+    public PowerUp getHook() {
+        return hook;
+    }
+
+    public void setHook(PowerUp hook) {
+        this.hook = hook;
     }
 }
