@@ -20,7 +20,7 @@ public class Const {
             "paddle", "bigPaddle", "smallPaddle", "ball", "logo", // paddle and ball
             "brickBlue", "brickGreen", "brickLightBlue", "brickOrange", "brickPurple", "brickRed", "brickWhite",
             "brickYellow", "brickSilver", "brickGold", // all the bricks
-            "powerUpExtraLive", "powerUpEnlargePaddle" // the powerUps
+            "powerUpExtraLive", "powerUpEnlargePaddle", "powerUpReducePaddle", "powerUpWall" // the powerUps
     };
 
     // Button init

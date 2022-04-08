@@ -13,7 +13,11 @@ public class HookFactory {
             case EXTRA_LIVE:
                 return new ExtraLifePowerUp(gameCanvas);
             case ENLARGED_PADDLE:
-                return new BigPaddlePowerUp(gameCanvas);
+                return new EnlargedPaddlePowerUp(gameCanvas);
+            case REDUCED_PADDLE:
+                return new ReducedPaddlePowerUp(gameCanvas);
+            case BOTTOM_WALL:
+                return new InvincibleWallPowerUp(gameCanvas);
             default:
                 throw new IllegalArgumentException();
         }

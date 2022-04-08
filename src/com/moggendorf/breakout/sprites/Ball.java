@@ -3,7 +3,6 @@ package com.moggendorf.breakout.sprites;
 import com.moggendorf.breakout.Const;
 import com.moggendorf.breakout.GameCanvas;
 import com.moggendorf.breakout.ImageCache;
-import com.moggendorf.breakout.powerups.BigPaddlePowerUp;
 import com.moggendorf.breakout.powerups.Power;
 
 import java.awt.*;
@@ -164,7 +163,6 @@ public class Ball extends AbstractImageSprite {
             // prepared for dropping several but the original game only allowed one powerUp to drop at a
             // time... so I clear the list if a new drops.
             gameCanvas.getBooster().clear();
-            System.out.println(brick.getPower());
             Booster booster = null;
             switch (brick.getPower()) {
                 case SLOW :
@@ -175,10 +173,12 @@ public class Ball extends AbstractImageSprite {
                     booster = new BoosterExtraLife(gameCanvas);
                     break;
                 case BOTTOM_WALL:
+                    booster = new BoosterWall(gameCanvas);
                     break;
                 case TRIPLE_BALL:
                     break;
                 case REDUCED_PADDLE:
+                    booster = new BoosterReducePaddle(gameCanvas);
                     break;
                 case ENLARGED_PADDLE:
                     booster = new BoosterEnlargedPaddle(gameCanvas);
@@ -189,8 +189,6 @@ public class Ball extends AbstractImageSprite {
                 booster.init(brick);
                 gameCanvas.setScore(gameCanvas.getScore() + booster.getPoints());
                 gameCanvas.getBooster().add(booster);
-                System.out.println(gameCanvas.getBooster().get(0));
-
             }
         }
     }

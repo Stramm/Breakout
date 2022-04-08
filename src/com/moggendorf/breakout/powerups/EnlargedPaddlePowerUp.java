@@ -4,17 +4,15 @@ import com.moggendorf.breakout.GameCanvas;
 import com.moggendorf.breakout.ImageCache;
 import com.moggendorf.breakout.sprites.Paddle;
 
-public class SmallPaddlePowerUp extends AbstractPowerUp {
-    public SmallPaddlePowerUp(GameCanvas gameCanvas) {
+public class EnlargedPaddlePowerUp extends AbstractPowerUp {
+    public EnlargedPaddlePowerUp(GameCanvas gameCanvas) {
         super(gameCanvas);
         init();
     }
 
     private void init() {
         Paddle paddle = getGameCanvas().getPaddle();
-        paddle.setWidth(90);
-        paddle.setImage(ImageCache.getImage("smallPaddle"));
-
-
+        paddle.setWidth(200);
+        paddle.setImage(ImageCache.getImage("bigPaddle"));
     }
 }

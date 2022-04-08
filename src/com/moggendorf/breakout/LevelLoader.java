@@ -110,7 +110,7 @@ public class LevelLoader {
 
     private void setSpecial(Brick brick, String line, int pos) {
         switch(line.charAt(pos)) {
-            case 'P':
+            case 'L':
                 brick.setPower(Power.EXTRA_LIVE); // red
                 break;
             case 'D':
@@ -119,17 +119,17 @@ public class LevelLoader {
             case 'S':
                 brick.setPower(Power.SLOW); // orange todo
                 break;
-            case 'L':
+            case 'G':
                 brick.setPower(Power.LASER); // silver todo
                 break;
             case 'E':
                 brick.setPower(Power.ENLARGED_PADDLE); // blue
                 break;
-            case 'M':
-                brick.setPower(Power.REDUCED_PADDLE); // black todo
+            case 'R':
+                brick.setPower(Power.REDUCED_PADDLE); // black
                 break;
             case 'W':
-                brick.setPower(Power.BOTTOM_WALL); // gray todo
+                brick.setPower(Power.BOTTOM_WALL); // gray
                 break;
             default:
                 brick.setPower(Power.DEFAULT);
