@@ -140,7 +140,7 @@ public abstract class AbstractGameCanvas extends JPanel {
     private void drawLives(Graphics2D g2) {
         BufferedImage paddleImage = ImageCache.getImage("paddle"); // even when powerUps are in use draw the default paddle
         int yPos = getHeight() - (int) (paddleImage.getHeight() * Const.LIVE_IMAGE_SCALE) - Const.EDGE_WIDTH;
-        for (int i = 0; i < lives; i++) {
+        for (int i = 0; i < lives - 1; i++) {
             int x = (int) (i * paddleImage.getWidth() * Const.LIVE_IMAGE_SCALE);
             g2.drawImage(paddleImage,
                     x,

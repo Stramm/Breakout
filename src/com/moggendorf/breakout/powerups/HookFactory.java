@@ -18,6 +18,11 @@ public class HookFactory {
                 return new ReducedPaddlePowerUp(gameCanvas);
             case BOTTOM_WALL:
                 return new InvincibleWallPowerUp(gameCanvas);
+            case TRIPLE_BALL:
+                return new TripleBallPowerUp(gameCanvas);
+            case SLOW:
+                return new SlowPowerUp(gameCanvas);
+
             default:
                 throw new IllegalArgumentException();
         }

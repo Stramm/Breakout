@@ -16,4 +16,11 @@ public class Util {
         button.setFont(font);
         return button;
     }
+
+    public static double getCurrentAngle(double dx, double dy, double speed) {
+        if (dy > 0)
+            return Math.toDegrees(Math.acos(dx / speed));
+        else
+            return Math.toDegrees(Math.asin(dy / speed));
+    }
 }

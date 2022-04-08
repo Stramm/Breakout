@@ -3,6 +3,7 @@ package com.moggendorf.breakout.sprites;
 import com.moggendorf.breakout.Const;
 import com.moggendorf.breakout.GameCanvas;
 import com.moggendorf.breakout.ImageCache;
+import com.moggendorf.breakout.Util;
 import com.moggendorf.breakout.powerups.Power;
 
 import java.awt.*;
@@ -42,10 +43,8 @@ public class Ball extends AbstractImageSprite {
     private void checkIncreaseSpeed() {
         if (contacts > Const.NUM_CONTACTS_TO_INCREASE_SPEED) {
             contacts = 0;
-            if (getDy() > 0)
-                angle = Math.toDegrees(Math.acos(getDx() / speed));
-            else
-                angle = Math.toDegrees(Math.asin(getDy() / speed));
+            angle = Util.getCurrentAngle(getDx(), getDy(), getSpeed());
+
             speed += Const.INCREASE_SPEED_BY;
             if (speed > Const.MAX_SPEED)
                 speed = Const.MAX_SPEED;
@@ -53,7 +52,6 @@ public class Ball extends AbstractImageSprite {
             // update dX adn dY
             calcDxDy();
         }
-
     }
 
     public void calcDxDy() {
@@ -68,12 +66,18 @@ public class Ball extends AbstractImageSprite {
             moveBall();
         } else if (getY() > Const.FRAME_HEIGHT) {
             // ball lost, next ball if any
-            gameCanvas.resetSprites();
-            gameCanvas.setStartListener();
+            setVisible(false);
+            setMovable(false);
+            for (Ball ball : gameCanvas.getBalls()) {
+                if (ball.isVisible()) {
+                    return; // if at least one ball is there, we continue, else, next life
+                }
+            }
+            gameCanvas.deductLive();
             gameCanvas.getBooster().clear();
-        }
-
-        if (getX() < 0 || getX() > Const.FRAME_WIDTH - 2 * Const.EDGE_WIDTH - getWidth()) {
+            gameCanvas.setStartListener();
+            gameCanvas.resetSprites();
+        } else if (getX() < 0 || getX() > Const.FRAME_WIDTH - 2 * Const.EDGE_WIDTH - getWidth()) {
             setDx(-getDx());
             contacts++;
             moveBall();
@@ -166,6 +170,7 @@ public class Ball extends AbstractImageSprite {
             Booster booster = null;
             switch (brick.getPower()) {
                 case SLOW :
+                    booster = new BoosterSlow(gameCanvas);
                     break;
                 case LASER:
                     break;
@@ -176,6 +181,7 @@ public class Ball extends AbstractImageSprite {
                     booster = new BoosterWall(gameCanvas);
                     break;
                 case TRIPLE_BALL:
+                    booster = new BoosterTripleBall(gameCanvas);
                     break;
                 case REDUCED_PADDLE:
                     booster = new BoosterReducePaddle(gameCanvas);
@@ -187,7 +193,6 @@ public class Ball extends AbstractImageSprite {
             }
             if (booster != null) {
                 booster.init(brick);
-                gameCanvas.setScore(gameCanvas.getScore() + booster.getPoints());
                 gameCanvas.getBooster().add(booster);
             }
         }
@@ -198,8 +203,16 @@ public class Ball extends AbstractImageSprite {
         this.angle = angle;
     }
 
+    public double getAngle() {
+        return angle;
+    }
+
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public double getSpeed() {
+        return speed;
     }
 
     public int getContacts() {

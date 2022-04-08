@@ -64,6 +64,10 @@ public class GameCanvas extends AbstractGameCanvas {
         setBooster(new CopyOnWriteArrayList<>());
     }
 
+    public void deductLive() {
+        setLives(getLives() - 1);
+    }
+
     // set back sprite settings to initial values
     public void resetSprites() {
         // check game end
@@ -72,7 +76,6 @@ public class GameCanvas extends AbstractGameCanvas {
             stopThreads();
             getStartPage().changeCard("splashCanvas");
         }
-        setLives(getLives() - 1);
 
         // set ball and paddle to initial start values
         Paddle paddle = getPaddle();
@@ -115,7 +118,8 @@ public class GameCanvas extends AbstractGameCanvas {
     }
 
     public void startNextLevel() {
-        // when starting we assign no powerUp
+        // when starting we assign no powerUp and clear the booster sprites list
+        getBooster().clear();
         hook = new NoPowerUp(this);
         // set to false, when the ball is released, levelStarted is set to true (in listener)
         levelStarted = false;

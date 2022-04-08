@@ -113,11 +113,11 @@ public class LevelLoader {
             case 'L':
                 brick.setPower(Power.EXTRA_LIVE); // red
                 break;
-            case 'D':
-                brick.setPower(Power.TRIPLE_BALL); // cyan todo
+            case 'T':
+                brick.setPower(Power.TRIPLE_BALL); // dark blue
                 break;
             case 'S':
-                brick.setPower(Power.SLOW); // orange todo
+                brick.setPower(Power.SLOW); // orange
                 break;
             case 'G':
                 brick.setPower(Power.LASER); // silver todo
