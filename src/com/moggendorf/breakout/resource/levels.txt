@@ -14,8 +14,12 @@ Speed: 2.0
 ..........................
 ..........................
 ..........................
-..........r.r.r...........
-G.G.G.....bWb.b.....G.G.G.
+S.S.S.S.S.S.S.S.S.SRS.S.S.
+r.rEr.r.r.rRr.r.r.r.r.rLr.
+y.y.yRy.y.y.y.y.y.y.yWy.y.
+b.b.b.b.b.b.b.b.b.b.bRb.b.
+p.pEp.p.p.p.p.p.p.p.pEp.p.
+g.g.g.g.g.g.gRg.g.g.g.g.g.
 
 
 *************************************
@@ -30,12 +34,12 @@ Speed: 2.0
 ..........................
 ..........................
 ..........................
-r.r.r.r.r.r.r.r.r.r.r.r.r.
-p.p.p.p.p.p.p.p.p.p.p.p.p.
-g...g...g...g...g...g...g.
-b.b.b.b.b.b.b.b.b.b.b.b.b.
-o.o.o.o.o.o.o.o.o.o.o.o.o.
-w.w.w.w.w.w.w.w.w.w.w.w.w.
+r.rEr.r.r.rRr.r.r.r.r.r.r.
+p.pRp.p.p.p.p.p.p.pEp.pLp.
+g...g...g..Rg...g...g...g.
+b.bWb.b.b.b.b.b.b.b.bRb.b.
+o.o.o.o.oEo.o.o.o.oRo.o.o.
+w.w.wRw.w.w.w.w.w.w.w.w.wR
 
 
 ....S.S.S.S.S.S.S.S.S.....
