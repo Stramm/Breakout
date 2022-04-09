@@ -31,7 +31,8 @@ public class Ball extends AbstractImageSprite {
 
     @Override
     public void update() {
-        checkIncreaseSpeed(); // check and get possible new speed first (calc angle) before changing the direction on hit
+        // often returns a wrong angle... so just check when the paddle is hit, here we have same conditions for each check
+        // checkIncreaseSpeed(); // check and get possible new speed first (calc angle) before changing the direction on hit
         moveBall();
         checkWallCollision();
         checkPaddleCollision();
@@ -118,6 +119,9 @@ public class Ball extends AbstractImageSprite {
             }
             // set the ball up a little bit to avoid confusions with collision detection
             setY(getY() - getDy());
+
+            // check increase speed necessary?
+            checkIncreaseSpeed();
 
             // hook ball hit paddle
             gameCanvas.getHook().hookBallHitPaddle(this, gameCanvas.getPaddle());

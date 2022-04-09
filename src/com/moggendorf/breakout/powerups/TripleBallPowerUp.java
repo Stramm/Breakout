@@ -13,6 +13,20 @@ public class TripleBallPowerUp extends AbstractPowerUp {
     }
 
     private void init() {
+        // check if ball[0] is the active ball... otherwise swap balls
+        // that way we make sure the ball we triple is on the field
+        if (!getGameCanvas().getBalls()[0].isVisible()) {
+            for (int i = 1; i < getGameCanvas().getBalls().length; i++) {
+                if (getGameCanvas().getBalls()[i].isVisible()) {
+                    // swap, and we assume at least one ball is active
+                    Ball temp = getGameCanvas().getBalls()[i];
+                    getGameCanvas().getBalls()[i] = getGameCanvas().getBalls()[0];
+                    getGameCanvas().getBalls()[0] = temp;
+                    break;
+                }
+            }
+        }
+
         Ball ball = getGameCanvas().getBalls()[0];
         Ball ball2 = getGameCanvas().getBalls()[1];
         Ball ball3 = getGameCanvas().getBalls()[2];
