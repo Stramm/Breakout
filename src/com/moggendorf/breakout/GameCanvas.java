@@ -5,15 +5,12 @@ import com.moggendorf.breakout.listeners.PaddleGlueListener;
 import com.moggendorf.breakout.listeners.PaddlePlayListener;
 import com.moggendorf.breakout.listeners.PaddleStartListener;
 import com.moggendorf.breakout.powerups.*;
-import com.moggendorf.breakout.sprites.AbstractSprite;
 import com.moggendorf.breakout.sprites.Ball;
 import com.moggendorf.breakout.sprites.Brick;
 import com.moggendorf.breakout.sprites.Paddle;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameCanvas extends AbstractGameCanvas {

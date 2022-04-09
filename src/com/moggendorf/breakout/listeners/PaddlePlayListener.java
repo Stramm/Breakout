@@ -2,7 +2,6 @@ package com.moggendorf.breakout.listeners;
 
 import com.moggendorf.breakout.Const;
 import com.moggendorf.breakout.GameCanvas;
-import com.moggendorf.breakout.sprites.LaserBeam2DSprite;
 import com.moggendorf.breakout.sprites.Paddle;
 
 import java.awt.event.MouseAdapter;

@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
-// todo: switch x, y and dx, dy to atomic int
 public class Ball extends AbstractImageSprite {
     private GameCanvas gameCanvas;
     private double angle;
