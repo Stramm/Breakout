@@ -59,8 +59,8 @@ public class GameCanvas extends AbstractGameCanvas {
         // create ball, paddle and a map that holds them (and maybe drops)
         setPaddle(new Paddle(this));
 
-        setBalls(new Ball[Const.MAX_BALLS]);
-        for (int i = 0; i < Const.MAX_BALLS; i++) {
+        setBalls(new Ball[Const.POWER_UP_MAX_BALLS]);
+        for (int i = 0; i < Const.POWER_UP_MAX_BALLS; i++) {
             getBalls()[i] = new Ball(this);
         }
 
@@ -88,7 +88,7 @@ public class GameCanvas extends AbstractGameCanvas {
 
         // set up the balls with some initial values, for the normal play we use 0, when powerUp, 1 and 2
         // then we set 1, 2 to visible and new x, y, dx, dy
-        for (int i = 0; i < Const.MAX_BALLS; i++) {
+        for (int i = 0; i < Const.POWER_UP_MAX_BALLS; i++) {
             Ball ball = getBalls()[i];
             ball.init();
             ball.setX((getWidth() - ball.getWidth()) / 2.);

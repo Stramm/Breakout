@@ -7,6 +7,7 @@ public class Const {
 
     private Const() {}
 
+
     // threads
     public static final long UPDATE_THREAD_SLEEP = 5;
     public static final long REPAINT_THREAD_SLEEP = 20;
@@ -41,16 +42,22 @@ public class Const {
     public static final Color FIELD_BACK_COLOR = new Color(2, 3, 59);
     public final static int LIVES = 3;
     public final static int LEVELS = 3;
-    public static final int MAX_BALLS = 3; // max balls in the field when using power ups
-    public static final double POWER_UP_DROP_SPEED = .4;
-    public static final double POWER_UP_SLOW_SPEED_REDUCTION = 1.5;
     public final static int NUM_CONTACTS_TO_INCREASE_SPEED = 3;
     public final static double INCREASE_SPEED_BY = .01;
     public final static double MAX_SPEED = 6;
     public final static Font ROUND_FONT = new Font("SansSerif", Font.ITALIC & Font.BOLD, 40);
     public final static int SHOW_ROUND_Y = 500;
 
+    // power up
+    public static final int POWER_UP_MAX_BALLS = 3; // max balls in the field when using power ups
+    public static final double POWER_UP_DROP_SPEED = .4;
+    public static final double POWER_UP_SLOW_SPEED_REDUCTION = 1.9;
+    public static final double POWER_UP_SLOW_REDUCE_TO_MIN = .8;
+    public static final double POWER_UP_LASER_SPEED = 2.5;
+    public static final Color POWER_UP_COLOR_LASER_BEAM = new Color(255, 248, 165, 224);
+
     // score
+
     public final static Font SCORE_FONT = new Font("SansSerif", Font.ITALIC & Font.BOLD, 22);
     public final static Color SCORE_COLOR = new Color(150, 150, 150);
 

@@ -20,7 +20,7 @@ public class SlowPowerUp extends AbstractPowerUp {
 
             // then calc a new speed
             double speed = ball.getSpeed() - Const.POWER_UP_SLOW_SPEED_REDUCTION;
-            speed = speed > 1 ? speed : 1;
+            speed = Math.max(speed, Const.POWER_UP_SLOW_REDUCE_TO_MIN);
 
             // set new speed and angle
             ball.setSpeed(speed);
