@@ -1,6 +1,7 @@
 package com.moggendorf.breakout;
 
 
+import com.moggendorf.breakout.listeners.PaddleGlueListener;
 import com.moggendorf.breakout.listeners.PaddlePlayListener;
 import com.moggendorf.breakout.listeners.PaddleStartListener;
 import com.moggendorf.breakout.powerups.*;
@@ -18,6 +19,7 @@ public class GameCanvas extends AbstractGameCanvas {
     private int currentLevel;
     private MouseAdapter paddlePlayListener;
     private MouseAdapter paddleStartListener;
+    private MouseAdapter paddleGlueListener;
     private boolean levelStarted;
     private PowerUp hook;
 
@@ -50,6 +52,7 @@ public class GameCanvas extends AbstractGameCanvas {
     private void initListener() {
         paddlePlayListener = new PaddlePlayListener(getPaddle());
         paddleStartListener = new PaddleStartListener(this);
+        paddleGlueListener = new PaddleGlueListener(this);
     }
 
     private void initSprites() {
@@ -101,6 +104,10 @@ public class GameCanvas extends AbstractGameCanvas {
     }
 
     public void setStartListener() {
+        // if still set from the glue power up
+        removeMouseListener(paddleGlueListener);
+        removeMouseListener(paddleGlueListener);
+
         removeMouseListener(paddlePlayListener);
         removeMouseMotionListener(paddlePlayListener);
 
@@ -198,5 +205,29 @@ public class GameCanvas extends AbstractGameCanvas {
 
     public void setHookFactory(HookFactory hookFactory) {
         this.hookFactory = hookFactory;
+    }
+
+    public MouseAdapter getPaddlePlayListener() {
+        return paddlePlayListener;
+    }
+
+    public void setPaddlePlayListener(MouseAdapter paddlePlayListener) {
+        this.paddlePlayListener = paddlePlayListener;
+    }
+
+    public MouseAdapter getPaddleStartListener() {
+        return paddleStartListener;
+    }
+
+    public void setPaddleStartListener(MouseAdapter paddleStartListener) {
+        this.paddleStartListener = paddleStartListener;
+    }
+
+    public MouseAdapter getPaddleGlueListener() {
+        return paddleGlueListener;
+    }
+
+    public void setPaddleGlueListener(MouseAdapter paddleGlueListener) {
+        this.paddleGlueListener = paddleGlueListener;
     }
 }

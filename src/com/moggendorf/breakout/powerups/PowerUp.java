@@ -1,6 +1,7 @@
 package com.moggendorf.breakout.powerups;
 
 import com.moggendorf.breakout.sprites.Ball;
+import com.moggendorf.breakout.sprites.Paddle;
 
 import java.awt.*;
 
@@ -20,4 +21,6 @@ public interface PowerUp {
     void hookBallWall(Ball ball);
 
     void hookDraw(Graphics2D g2);
+
+    void hookBallHitPaddle(Ball ball, Paddle paddle);
 }

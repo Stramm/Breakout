@@ -21,8 +21,9 @@ public class LevelLoader {
     }
 
     public Brick[][] getLevel(int level) {
-        int loadLevel = level == Const.LEVELS ? Const.LEVELS : level % Const.LEVELS; // for 20 level
-
+        // todo check the problem here... gives nullPointerException after turn over
+        // int loadLevel = level == Const.LEVELS ? Const.LEVELS : level % Const.LEVELS;
+        int loadLevel = (level - 1) % Const.LEVELS + 1;
         List<String> allLevels = new ArrayList<>();
         try (InputStream in = getClass().getResourceAsStream(Const.PATH_TO_RESOURCES);
              BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
@@ -130,6 +131,9 @@ public class LevelLoader {
                 break;
             case 'W':
                 brick.setPower(Power.BOTTOM_WALL); // gray
+                break;
+            case 'C':
+                brick.setPower(Power.GLUE); // green
                 break;
             default:
                 brick.setPower(Power.DEFAULT);

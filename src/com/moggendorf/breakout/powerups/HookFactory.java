@@ -22,7 +22,10 @@ public class HookFactory {
                 return new TripleBallPowerUp(gameCanvas);
             case SLOW:
                 return new SlowPowerUp(gameCanvas);
-
+            case GLUE:
+                return new GluePowerUp(gameCanvas);
+            case DEFAULT:
+                return new NoPowerUp(gameCanvas);
             default:
                 throw new IllegalArgumentException();
         }

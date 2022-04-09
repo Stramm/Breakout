@@ -21,7 +21,7 @@ public class Const {
             "brickBlue", "brickGreen", "brickLightBlue", "brickOrange", "brickPurple", "brickRed", "brickWhite",
             "brickYellow", "brickSilver", "brickGold", // all the bricks
             "powerUpExtraLive", "powerUpEnlargePaddle", "powerUpReducePaddle", "powerUpWall", "powerUpTriBall",
-            "powerUpSlow"// the powerUps
+            "powerUpSlow", "powerUpGlue"// the powerUps
     };
 
     // Button init
@@ -44,8 +44,8 @@ public class Const {
     public static final int MAX_BALLS = 3; // max balls in the field when using power ups
     public static final double POWER_UP_DROP_SPEED = .4;
     public static final double POWER_UP_SLOW_SPEED_REDUCTION = 1.5;
-    public final static int NUM_CONTACTS_TO_INCREASE_SPEED = 10;
-    public final static double INCREASE_SPEED_BY = .05;
+    public final static int NUM_CONTACTS_TO_INCREASE_SPEED = 3;
+    public final static double INCREASE_SPEED_BY = .01;
     public final static double MAX_SPEED = 6;
     public final static Font ROUND_FONT = new Font("SansSerif", Font.ITALIC & Font.BOLD, 40);
     public final static int SHOW_ROUND_Y = 500;

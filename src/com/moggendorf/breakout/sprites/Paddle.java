@@ -2,6 +2,8 @@ package com.moggendorf.breakout.sprites;
 
 import com.moggendorf.breakout.GameCanvas;
 import com.moggendorf.breakout.ImageCache;
+import com.moggendorf.breakout.powerups.NoPowerUp;
+import com.moggendorf.breakout.powerups.Power;
 
 
 import java.awt.geom.Rectangle2D;
@@ -39,6 +41,8 @@ public class Paddle extends AbstractImageSprite {
                 if (paddleShape.intersects(boosterShape)) {
                     // add the points to the score
                     gameCanvas.setScore(gameCanvas.getScore() + b.getPoints());
+                    // reset possible currently active power ups
+                    gameCanvas.setHook(gameCanvas.getHookFactory().getHook(Power.DEFAULT));
                     // sets the powerup connected with the sprite as active hook in gameCanvas
                     gameCanvas.setHook(gameCanvas.getHookFactory().getHook(b.getPower()));
                     // and remove the powerUp sprite from the list

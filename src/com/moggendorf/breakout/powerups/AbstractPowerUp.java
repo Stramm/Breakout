@@ -2,6 +2,7 @@ package com.moggendorf.breakout.powerups;
 
 import com.moggendorf.breakout.GameCanvas;
 import com.moggendorf.breakout.sprites.Ball;
+import com.moggendorf.breakout.sprites.Paddle;
 
 import java.awt.*;
 
@@ -19,6 +20,11 @@ public class AbstractPowerUp implements PowerUp {
 
     @Override
     public void hookDraw(Graphics2D g2) {
+
+    }
+
+    @Override
+    public void hookBallHitPaddle(Ball ball, Paddle paddle) {
 
     }
 

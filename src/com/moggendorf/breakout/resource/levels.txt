@@ -19,7 +19,7 @@ r.rEr.r.r.rRr.r.r.r.r.rLr.
 y.y.yRy.y.y.y.yTy.y.yWy.y.
 b.b.b.b.b.b.b.b.b.b.bRb.b.
 p.pEp.p.pSp.p.p.p.p.pEp.p.
-g.g.g.g.g.g.gRg.gTg.g.gSg.
+g.gRg.g.g.g.g.g.gTgCg.gSg.
 
 
 *************************************

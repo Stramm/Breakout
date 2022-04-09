@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
-// todo: switch x, y and dx, dy to atomic int and Double.doubleToLongBits... eventually switch dx to atomicInt, too (or synchronize)
+// todo: switch x, y and dx, dy to atomic int
 public class Ball extends AbstractImageSprite {
     private GameCanvas gameCanvas;
     private double angle;
@@ -32,12 +32,12 @@ public class Ball extends AbstractImageSprite {
 
     @Override
     public void update() {
+        checkIncreaseSpeed(); // check and get possible new speed first (calc angle) before changing the direction on hit
         moveBall();
         checkWallCollision();
         checkPaddleCollision();
         checkBrickCollision();
-        checkHook();
-        checkIncreaseSpeed();
+        checkWallHook();
     }
 
     private void checkIncreaseSpeed() {
@@ -73,10 +73,10 @@ public class Ball extends AbstractImageSprite {
                     return; // if at least one ball is there, we continue, else, next life
                 }
             }
-            gameCanvas.deductLive();
-            gameCanvas.getBooster().clear();
-            gameCanvas.setStartListener();
-            gameCanvas.resetSprites();
+            gameCanvas.deductLive(); // remove a live
+            gameCanvas.getBooster().clear(); // clearing the booster sprite array
+            gameCanvas.setStartListener(); // set the listener for the start
+            gameCanvas.resetSprites(); // and reset paddel and ball to start values
         } else if (getX() < 0 || getX() > Const.FRAME_WIDTH - 2 * Const.EDGE_WIDTH - getWidth()) {
             setDx(-getDx());
             contacts++;
@@ -85,8 +85,8 @@ public class Ball extends AbstractImageSprite {
 
     }
 
-    // the powerUp interceptor, do eventual additonal checking for powerUps here
-    public void checkHook() {
+    // the powerUp interceptor, do eventual additional checking for powerUps here
+    public void checkWallHook() {
         gameCanvas.getHook().hookBallWall(this);
     }
 
@@ -119,6 +119,10 @@ public class Ball extends AbstractImageSprite {
             }
             // set the ball up a little bit to avoid confusions with collision detection
             setY(getY() - getDy());
+
+            // hook ball hit paddle
+            gameCanvas.getHook().hookBallHitPaddle(this, gameCanvas.getPaddle());
+
         }
 
     }
@@ -188,6 +192,9 @@ public class Ball extends AbstractImageSprite {
                     break;
                 case ENLARGED_PADDLE:
                     booster = new BoosterEnlargedPaddle(gameCanvas);
+                    break;
+                case GLUE:
+                    booster = new BoosterGlue(gameCanvas);
                     break;
 
             }
