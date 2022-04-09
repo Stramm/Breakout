@@ -25,7 +25,7 @@ public class GluePowerUp extends AbstractPowerUp {
     public void hookBallHitPaddle(Ball ball, Paddle paddle) {
         ball.setMovable(false);
         ball.setY(paddle.getY() - ball.getHeight());
-        ball.setAngle(45);
+        ball.setAngle(getGameCanvas().getLevelLoader().getAngle());
         ball.calcDxDy();
     }
 }

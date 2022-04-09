@@ -230,4 +230,12 @@ public class GameCanvas extends AbstractGameCanvas {
     public void setPaddleGlueListener(MouseAdapter paddleGlueListener) {
         this.paddleGlueListener = paddleGlueListener;
     }
+
+    public LevelLoader getLevelLoader() {
+        return levelLoader;
+    }
+
+    public void setLevelLoader(LevelLoader levelLoader) {
+        this.levelLoader = levelLoader;
+    }
 }
