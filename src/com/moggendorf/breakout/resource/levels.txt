@@ -19,7 +19,7 @@ r.rEr.r.r.rRr.rTr.r.r.rLr.
 y.y.yRy.y.y.y.yTy.y.yWy.y.
 b.bSb.b.bCb.b.b.b.b.bRb.b.
 p.pEp.p.pSp.p.p.p.p.pEp.p.
-g.gRg.g.g.g.g.g.gTgCg.gSg.
+g.gRg.g.g.g.g.g.gTgGg.gSg.
 
 
 *************************************
@@ -37,7 +37,7 @@ Speed: 2.0
 r.rEr.r.r.rRr.r.r.r.r.r.r.
 p.pRp.p.p.p.p.p.p.pEp.pLp.
 g...g...g..Rg...g...g...g.
-b.bWb.b.b.b.b.b.b.b.bRb.b.
+b.bWb.b.b.b.b.bGb.b.bRb.b.
 o.o.o.o.oEo.o.oEo.oRo.o.o.
 w.w.wRw.w.w.w.w.w.w.w.w.wR
 
@@ -62,6 +62,6 @@ w.......................w.
 ..yRy.y.yTy.yCy.y.y.y.y...
 ....r.r.r.r.r.r.r.r.rS....
 ......b.b.bTb.b.b.b.......
-........lRl.l.l.l.........
+........lRl.lGl.l.........
 
 *************************************

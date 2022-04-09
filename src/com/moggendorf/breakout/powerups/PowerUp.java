@@ -23,4 +23,6 @@ public interface PowerUp {
     void hookDraw(Graphics2D g2);
 
     void hookBallHitPaddle(Ball ball, Paddle paddle);
+
+    void hookPlayListenerRelease(Paddle paddle);
 }

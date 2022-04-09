@@ -22,7 +22,7 @@ public class Const {
             "brickBlue", "brickGreen", "brickLightBlue", "brickOrange", "brickPurple", "brickRed", "brickWhite",
             "brickYellow", "brickSilver", "brickGold", // all the bricks
             "powerUpExtraLive", "powerUpEnlargePaddle", "powerUpReducePaddle", "powerUpWall", "powerUpTriBall",
-            "powerUpSlow", "powerUpGlue"// the powerUps
+            "powerUpSlow", "powerUpGlue", "powerUpGun"// the powerUps
     };
 
     // Button init

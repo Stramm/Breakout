@@ -24,6 +24,8 @@ public class HookFactory {
                 return new SlowPowerUp(gameCanvas);
             case GLUE:
                 return new GluePowerUp(gameCanvas);
+            case GUN:
+                return new GunPowerUp(gameCanvas);
             case DEFAULT:
                 return new NoPowerUp(gameCanvas);
             default:

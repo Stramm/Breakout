@@ -1,25 +1,22 @@
 package com.moggendorf.breakout;
 
-import com.moggendorf.breakout.sprites.Ball;
-import com.moggendorf.breakout.sprites.Booster;
-import com.moggendorf.breakout.sprites.Brick;
-import com.moggendorf.breakout.sprites.Paddle;
+import com.moggendorf.breakout.sprites.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class AbstractGameCanvas extends JPanel {
     private StartPage startPage;
     private int lives;
-    private Brick[][] bricks;
+    private Brick[][] bricks; // todo convert to 2d array or make it a a synchronized list
     private Paddle paddle;
     private Ball[] balls;
-    private CopyOnWriteArrayList<Booster> booster;
+    private CopyOnWriteArrayList<AbstractSprite> laserBeams; // make this a synchronized list Collections.synchronizedList()
+    private CopyOnWriteArrayList<Booster> booster; // maybe switch to synchronized list... but the booster list hardly updates
     private int bricksLeft;
     private Thread repaintThread;
     private Thread updateThread;
@@ -84,6 +81,14 @@ public abstract class AbstractGameCanvas extends JPanel {
             }
         }
 
+        // do not use for-each loop or the copyonwritelist will necessarily loop through the entire list even if the copy is already cleared
+        // that leads to removing bricks after advancing to a next level
+        for (int i = 0; i < laserBeams.size(); i++) {
+            if (laserBeams.get(i).isMovable()) {
+                laserBeams.get(i).update();
+            }
+        }
+
         if (paddle.isVisible() && paddle.isMovable()) {
             paddle.update();
         }
@@ -93,7 +98,6 @@ public abstract class AbstractGameCanvas extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-
         for (Booster boost : booster) {
             if (boost.isVisible()) {
                 boost.paint(g2);
@@ -105,6 +109,12 @@ public abstract class AbstractGameCanvas extends JPanel {
                 if (brick != null && brick.isVisible()) {
                     brick.paint(g2);
                 }
+            }
+        }
+
+        for (int i = 0; i < laserBeams.size(); i++) {
+            if (laserBeams.get(i).isVisible()) {
+                laserBeams.get(i).paint(g2);
             }
         }
 
@@ -279,5 +289,13 @@ public abstract class AbstractGameCanvas extends JPanel {
 
     public void setBooster(CopyOnWriteArrayList<Booster> booster) {
         this.booster = booster;
+    }
+
+    public CopyOnWriteArrayList<AbstractSprite> getLaserBeams() {
+        return laserBeams;
+    }
+
+    public void setLaserBeams(CopyOnWriteArrayList<AbstractSprite> laserBeams) {
+        this.laserBeams = laserBeams;
     }
 }

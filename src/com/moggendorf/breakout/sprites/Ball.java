@@ -176,7 +176,8 @@ public class Ball extends AbstractImageSprite {
                 case SLOW :
                     booster = new BoosterSlow(gameCanvas);
                     break;
-                case LASER:
+                case GUN:
+                    booster = new BoosterGun(gameCanvas);
                     break;
                 case EXTRA_LIVE:
                     booster = new BoosterExtraLife(gameCanvas);

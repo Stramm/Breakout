@@ -121,7 +121,7 @@ public class LevelLoader {
                 brick.setPower(Power.SLOW); // orange
                 break;
             case 'G':
-                brick.setPower(Power.LASER); // silverS
+                brick.setPower(Power.GUN); // purple
                 break;
             case 'E':
                 brick.setPower(Power.ENLARGED_PADDLE); // blue

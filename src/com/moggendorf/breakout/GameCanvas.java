@@ -5,12 +5,15 @@ import com.moggendorf.breakout.listeners.PaddleGlueListener;
 import com.moggendorf.breakout.listeners.PaddlePlayListener;
 import com.moggendorf.breakout.listeners.PaddleStartListener;
 import com.moggendorf.breakout.powerups.*;
+import com.moggendorf.breakout.sprites.AbstractSprite;
 import com.moggendorf.breakout.sprites.Ball;
 import com.moggendorf.breakout.sprites.Brick;
 import com.moggendorf.breakout.sprites.Paddle;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameCanvas extends AbstractGameCanvas {
@@ -50,7 +53,7 @@ public class GameCanvas extends AbstractGameCanvas {
     }
 
     private void initListener() {
-        paddlePlayListener = new PaddlePlayListener(getPaddle());
+        paddlePlayListener = new PaddlePlayListener(this);
         paddleStartListener = new PaddleStartListener(this);
         paddleGlueListener = new PaddleGlueListener(this);
     }
@@ -65,6 +68,7 @@ public class GameCanvas extends AbstractGameCanvas {
         }
 
         setBooster(new CopyOnWriteArrayList<>());
+        setLaserBeams(new CopyOnWriteArrayList<>()); // AbstractSprite
     }
 
     public void deductLive() {
@@ -73,6 +77,14 @@ public class GameCanvas extends AbstractGameCanvas {
 
     // set back sprite settings to initial values
     public void resetSprites() {
+
+        // when resetting we assign no powerUp and clear the booster sprites list
+        getBooster().clear();
+        hook = new NoPowerUp(this);
+
+        // clear the beams
+        getLaserBeams().clear();
+
         // check game end
         if (getLives() == 0) {// game lost
             pauseGame();
@@ -101,7 +113,8 @@ public class GameCanvas extends AbstractGameCanvas {
         getBalls()[0].setContacts(0);
         getBalls()[0].setVisible(true);
 
-    }
+
+     }
 
     public void setStartListener() {
         // if still set from the glue power up
@@ -125,9 +138,7 @@ public class GameCanvas extends AbstractGameCanvas {
     }
 
     public void startNextLevel() {
-        // when starting we assign no powerUp and clear the booster sprites list
-        getBooster().clear();
-        hook = new NoPowerUp(this);
+
         // set to false, when the ball is released, levelStarted is set to true (in listener)
         levelStarted = false;
         setBricks(levelLoader.getLevel(++currentLevel));

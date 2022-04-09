@@ -28,6 +28,11 @@ public class AbstractPowerUp implements PowerUp {
 
     }
 
+    @Override
+    public void hookPlayListenerRelease(Paddle paddle) {
+
+    }
+
     public GameCanvas getGameCanvas() {
         return gameCanvas;
     }
