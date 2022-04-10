@@ -42,11 +42,12 @@ public class GameCanvas extends AbstractGameCanvas {
         setScore(0);
         setLives(Const.LIVES);
 
+        startThreads();
         initSprites(); // ball and paddle and booster list
-        startNextLevel(); // load level, init bricks
-        resetSprites(); // set ball and paddle to default values, decrease lives, calculate angle and speed of the ball
         initListener(); // listener
-        setStartListener(); // set the drag & release listener to be able to fire the ball
+        startNextLevel(); // advance to next level, load level, init bricks
+        resetSprites(); // start new ball, set ball and paddle to default values, decrease lives, calculate angle and speed of the ball
+        // setStartListener(); // set the drag & release listener to be able to fire the ball
     }
 
     private void initListener() {
@@ -74,10 +75,13 @@ public class GameCanvas extends AbstractGameCanvas {
 
     // set back sprite settings to initial values
     public void resetSprites() {
-
         // when resetting we assign no powerUp and clear the booster sprites list
         getBooster().clear();
         hook = new NoPowerUp(this);
+
+        // new ball, we need the start listener
+        setStartListener();
+
 
         // clear the beams
         getLaserBeams().clear();
@@ -110,32 +114,9 @@ public class GameCanvas extends AbstractGameCanvas {
         getBalls()[0].setContacts(0);
         getBalls()[0].setVisible(true);
 
-
      }
 
-    public void setStartListener() {
-        // if still set from the glue power up
-        removeMouseListener(paddleGlueListener);
-        removeMouseListener(paddleGlueListener);
-
-        removeMouseListener(paddlePlayListener);
-        removeMouseMotionListener(paddlePlayListener);
-
-        addMouseListener(paddleStartListener);
-        addMouseMotionListener(paddleStartListener);
-    }
-
-    public void setPlayListener() {
-        removeMouseListener(paddleStartListener);
-        removeMouseMotionListener(paddleStartListener);
-
-        addMouseListener(paddlePlayListener);
-        addMouseMotionListener(paddlePlayListener);
-
-    }
-
     public void startNextLevel() {
-
         // set to false, when the ball is released, levelStarted is set to true (in listener)
         levelStarted = false;
         setBricks(levelLoader.getLevel(++currentLevel));
@@ -149,8 +130,22 @@ public class GameCanvas extends AbstractGameCanvas {
             }
         }
         setBricksLeft(numBricks);
-        startThreads();
         resumeGame();
+    }
+
+    public void setStartListener() {
+        // if still set from the glue power up
+        Util.removeAllMouseListeners(this);
+
+        addMouseListener(paddleStartListener);
+        addMouseMotionListener(paddleStartListener);
+    }
+
+    public void setPlayListener() {
+        Util.removeAllMouseListeners(this);
+
+        addMouseListener(paddlePlayListener);
+        addMouseMotionListener(paddlePlayListener);
     }
 
     public void checkLevelEnd() {

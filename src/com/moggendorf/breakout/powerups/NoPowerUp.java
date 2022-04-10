@@ -2,7 +2,10 @@ package com.moggendorf.breakout.powerups;
 
 import com.moggendorf.breakout.GameCanvas;
 import com.moggendorf.breakout.ImageCache;
+import com.moggendorf.breakout.Util;
 import com.moggendorf.breakout.sprites.Paddle;
+
+import java.util.Arrays;
 
 public class NoPowerUp extends AbstractPowerUp {
     public NoPowerUp(GameCanvas gameCanvas) {
@@ -17,6 +20,12 @@ public class NoPowerUp extends AbstractPowerUp {
         Paddle paddle = getGameCanvas().getPaddle();
         paddle.setWidth(120);
         paddle.setImage(ImageCache.getImage("paddle"));
+
+        // remove all listeners
+        Util.removeAllMouseListeners(getGameCanvas());
+        // set play listener
+        getGameCanvas().addMouseListener(getGameCanvas().getPaddlePlayListener());
+        getGameCanvas().addMouseMotionListener(getGameCanvas().getPaddlePlayListener());
     }
 
 }

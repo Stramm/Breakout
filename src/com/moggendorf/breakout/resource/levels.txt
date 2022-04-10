@@ -5,7 +5,6 @@
 # G and S are bricks that need more than one hit. G is undestroyable and des not give points and is not counted as brick
 # to remove. S needs two hits to get destroyed.
 
-
 *************************************
 Level: 1
 Angle: 45

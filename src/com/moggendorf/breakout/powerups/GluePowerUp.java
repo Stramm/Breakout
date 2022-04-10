@@ -1,8 +1,10 @@
 package com.moggendorf.breakout.powerups;
 
 import com.moggendorf.breakout.GameCanvas;
+import com.moggendorf.breakout.Util;
 import com.moggendorf.breakout.sprites.Ball;
 import com.moggendorf.breakout.sprites.Paddle;
+
 
 public class GluePowerUp extends AbstractPowerUp {
     public GluePowerUp(GameCanvas gameCanvas) {
@@ -11,11 +13,7 @@ public class GluePowerUp extends AbstractPowerUp {
     }
 
     private void init() {
-        getGameCanvas().removeMouseListener(getGameCanvas().getPaddlePlayListener());
-        getGameCanvas().removeMouseMotionListener(getGameCanvas().getPaddlePlayListener());
-
-        getGameCanvas().removeMouseListener(getGameCanvas().getPaddleStartListener());
-        getGameCanvas().removeMouseMotionListener(getGameCanvas().getPaddleStartListener());
+        Util.removeAllMouseListeners(getGameCanvas());
 
         getGameCanvas().addMouseListener(getGameCanvas().getPaddleGlueListener());
         getGameCanvas().addMouseMotionListener(getGameCanvas().getPaddleGlueListener());

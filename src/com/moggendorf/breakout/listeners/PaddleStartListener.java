@@ -35,8 +35,8 @@ public class PaddleStartListener extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        gameCanvas.setPlayListener(); // disable this listener and switch to play functionality
         gameCanvas.setLevelStarted(true);
         ball.setMovable(true);
+        gameCanvas.setPlayListener(); // disable this listener and switch to play functionality
     }
 }
