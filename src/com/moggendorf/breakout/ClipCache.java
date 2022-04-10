@@ -2,6 +2,7 @@ package com.moggendorf.breakout;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,14 +14,15 @@ public class ClipCache {
         clips = new HashMap<>();
         try {
             for (int i = 0; i < Const.CLIP_NAMES.length; i++) {
-                // Set up an audio input stream piped from the sound file
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(ClipCache.class.
-                        getResourceAsStream(Const.CLIP_PATH + "/" + Const.CLIP_NAMES[i] + ".wav"));
-                // Get a clip resource
-                Clip clip = AudioSystem.getClip();
-                // Open audio clip and load samples from the audio input stream.
-                clip.open(audioInputStream);
-                clips.put(Const.CLIP_NAMES[i], clip);
+                URL sound = ClipCache.class.getResource(Const.CLIP_PATH + "/" + Const.CLIP_NAMES[i] + ".wav");
+                // Get audio input stream from the url (use url, not stream or file or it won't work inside jars)
+                try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(sound)) {
+                    // Get a clip resource
+                    Clip clip = AudioSystem.getClip();
+                    // Open audio clip and load samples from the audio input stream.
+                    clip.open(audioInputStream);
+                    clips.put(Const.CLIP_NAMES[i], clip);
+                }
             }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
