@@ -1,5 +1,8 @@
 package com.moggendorf.breakout;
 
+import com.moggendorf.breakout.sprites.Ball;
+
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -33,5 +36,27 @@ public class Util {
         for (MouseMotionListener mml : gameCanvas.getMouseMotionListeners()) {
             gameCanvas.removeMouseMotionListener(mml);
         }
+    }
+
+    // to avoid triple ball problems
+    public static void swapVisibleBallToZero(GameCanvas gameCanvas) {
+        // check if ball[0] is the active ball... otherwise swap balls
+        // that way we make sure the ball we triple is on the field
+        if (!gameCanvas.getBalls()[0].isVisible()) {
+            for (int i = 1; i < gameCanvas.getBalls().length; i++) {
+                if (gameCanvas.getBalls()[i].isVisible()) {
+                    // swap, and we assume at least one ball is active
+                    Ball temp = gameCanvas.getBalls()[i];
+                    gameCanvas.getBalls()[i] = gameCanvas.getBalls()[0];
+                    gameCanvas.getBalls()[0] = temp;
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void playSound(Clip clip) {
+        clip.setFramePosition(0);
+        clip.start();
     }
 }

@@ -1,9 +1,11 @@
 # there has to be a line Level: with a number
 # from that line + 2 the field starts and it ends with the next *** -1 line
-# b, g, l. o, p, r, w, y sets a brick. Each brick is followed by a special (not yet implemented)
+# b, g, l. o, p, r, w, y sets a brick. Each brick is followed by a special
 # there have to be 13 bricks, no brick is a dot .
 # G and S are bricks that need more than one hit. G is undestroyable and des not give points and is not counted as brick
 # to remove. S needs two hits to get destroyed.
+# the specials are: G (laser gun), C (glue), L (extra live), T (triple ball), S (slow ball), E (enlarge paddle),
+# R (shrink paddle), W (invincible wall)
 
 *************************************
 Level: 1
@@ -19,7 +21,6 @@ y.y.yRy.y.y.y.yTy.y.yWy.y.
 b.bSb.b.bCb.b.b.b.b.bRb.b.
 p.pEp.p.pSp.p.p.p.p.pEp.p.
 g.gRg.g.g.g.g.g.gTgGg.gSg.
-
 
 *************************************
 

@@ -1,9 +1,6 @@
 package com.moggendorf.breakout.sprites;
 
-import com.moggendorf.breakout.Const;
-import com.moggendorf.breakout.GameCanvas;
-import com.moggendorf.breakout.ImageCache;
-import com.moggendorf.breakout.Util;
+import com.moggendorf.breakout.*;
 import com.moggendorf.breakout.powerups.Power;
 
 import java.awt.*;
@@ -64,6 +61,8 @@ public class Ball extends AbstractImageSprite {
             setDy(-getDy());
             contacts++;
             moveBall();
+            Util.playSound(ClipCache.getClip("hitWall"));
+
         } else if (getY() > Const.FRAME_HEIGHT) {
             // ball lost, next ball if any
             setVisible(false);
@@ -77,12 +76,13 @@ public class Ball extends AbstractImageSprite {
             gameCanvas.getBooster().clear(); // clearing the booster sprite array
             gameCanvas.setStartListener(); // set the listener for the start
             gameCanvas.resetSprites(); // and reset paddel and ball to start values
+            Util.playSound(ClipCache.getClip("ballLost"));
         } else if (getX() < 0 || getX() > Const.FRAME_WIDTH - 2 * Const.EDGE_WIDTH - getWidth()) {
             setDx(-getDx());
             contacts++;
             moveBall();
+            Util.playSound(ClipCache.getClip("hitWall"));
         }
-
     }
 
     // the powerUp interceptor, do eventual additional checking for powerUps here
@@ -126,6 +126,8 @@ public class Ball extends AbstractImageSprite {
             // hook ball hit paddle
             gameCanvas.getHook().hookBallHitPaddle(this, gameCanvas.getPaddle());
 
+            // play sound
+            Util.playSound(ClipCache.getClip("hitPaddle"));
         }
 
     }
@@ -147,6 +149,8 @@ public class Ball extends AbstractImageSprite {
                     continue;
                 Rectangle2D brickShape = new Rectangle2D.Double(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
                 if (ballShape.intersects(brickShape)) {
+                    // brick sound playing in brick sprites (to be able to play different sounds for each type)
+
                     contacts++;
                     // ball has hit a brick, remove the brick (in hit method) and, if removed, add points
                     if (brick.hit()) {

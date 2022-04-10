@@ -1,6 +1,7 @@
 package com.moggendorf.breakout.powerups;
 
 import com.moggendorf.breakout.GameCanvas;
+import com.moggendorf.breakout.Util;
 import com.moggendorf.breakout.sprites.Ball;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -15,17 +16,9 @@ public class TripleBallPowerUp extends AbstractPowerUp {
     private void init() {
         // check if ball[0] is the active ball... otherwise swap balls
         // that way we make sure the ball we triple is on the field
-        if (!getGameCanvas().getBalls()[0].isVisible()) {
-            for (int i = 1; i < getGameCanvas().getBalls().length; i++) {
-                if (getGameCanvas().getBalls()[i].isVisible()) {
-                    // swap, and we assume at least one ball is active
-                    Ball temp = getGameCanvas().getBalls()[i];
-                    getGameCanvas().getBalls()[i] = getGameCanvas().getBalls()[0];
-                    getGameCanvas().getBalls()[0] = temp;
-                    break;
-                }
-            }
-        }
+        // a similar problem we have, when catching glue after triple ball, then we make sure ball0 has a visible ball
+        // and deactivate the others
+        Util.swapVisibleBallToZero(getGameCanvas());
 
         Ball ball = getGameCanvas().getBalls()[0];
         Ball ball2 = getGameCanvas().getBalls()[1];

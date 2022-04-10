@@ -1,8 +1,9 @@
 package com.moggendorf.breakout.sprites;
 
+import com.moggendorf.breakout.ClipCache;
 import com.moggendorf.breakout.GameCanvas;
 import com.moggendorf.breakout.ImageCache;
-import com.moggendorf.breakout.powerups.NoPowerUp;
+import com.moggendorf.breakout.Util;
 import com.moggendorf.breakout.powerups.Power;
 
 
@@ -43,10 +44,15 @@ public class Paddle extends AbstractImageSprite {
                     gameCanvas.setScore(gameCanvas.getScore() + b.getPoints());
                     // reset possible currently active power ups
                     gameCanvas.setHook(gameCanvas.getHookFactory().getHook(Power.DEFAULT));
+                    // set the ball movable again (if we had the glue powerUp before and the ball sticks to the paddle)
+                    gameCanvas.getBalls()[0].setMovable(true);
                     // sets the powerup connected with the sprite as active hook in gameCanvas
                     gameCanvas.setHook(gameCanvas.getHookFactory().getHook(b.getPower()));
                     // and remove the powerUp sprite from the list
                     gameCanvas.getBooster().remove(b);
+
+                    // and play a sound
+                    Util.playSound(ClipCache.getClip("yeah"));
                 }
             }
         }

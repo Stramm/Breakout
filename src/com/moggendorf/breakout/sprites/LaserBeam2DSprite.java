@@ -1,7 +1,9 @@
 package com.moggendorf.breakout.sprites;
 
+import com.moggendorf.breakout.ClipCache;
 import com.moggendorf.breakout.Const;
 import com.moggendorf.breakout.GameCanvas;
+import com.moggendorf.breakout.Util;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -25,6 +27,8 @@ public class LaserBeam2DSprite extends AbstractShapeSprite {
         setHeight(33);
         setMovable(true);
         setVisible(true);
+        // and finally play the sound
+        Util.playSound(ClipCache.getClip("laser"));
     }
 
     @Override

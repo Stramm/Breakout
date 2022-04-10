@@ -1,5 +1,7 @@
 package com.moggendorf.breakout.sprites;
 
+import com.moggendorf.breakout.ClipCache;
+import com.moggendorf.breakout.Util;
 import com.moggendorf.breakout.powerups.Power;
 
 public class Brick extends AbstractImageSprite {
@@ -27,11 +29,13 @@ public class Brick extends AbstractImageSprite {
     // return true if the brick got destroyed, set to visible false in that case here, points get added in collision
     // detection in Ball class
     public boolean hit() {
+        Util.playSound(ClipCache.getClip("hitBrick"));
         if (--hits == 0) {
             setVisible(false);
             return true;
         }
         return false;
+
     }
 
 

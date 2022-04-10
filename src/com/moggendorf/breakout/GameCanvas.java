@@ -9,6 +9,7 @@ import com.moggendorf.breakout.sprites.Ball;
 import com.moggendorf.breakout.sprites.Brick;
 import com.moggendorf.breakout.sprites.Paddle;
 
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -32,6 +33,8 @@ public class GameCanvas extends AbstractGameCanvas {
     private void initComponents() {
         levelLoader = new LevelLoader(this);
         hookFactory = new HookFactory(this);
+        // preload caches
+        Util.playSound(ClipCache.getClip("initCache"));
     }
 
     // from here on init initiated from start button
@@ -87,11 +90,7 @@ public class GameCanvas extends AbstractGameCanvas {
         getLaserBeams().clear();
 
         // check game end
-        if (getLives() == 0) {// game lost
-            pauseGame();
-            stopThreads();
-            getStartPage().changeCard("splashCanvas");
-        }
+        checkGameOver();
 
         // set ball and paddle to initial start values
         Paddle paddle = getPaddle();
@@ -151,9 +150,23 @@ public class GameCanvas extends AbstractGameCanvas {
     public void checkLevelEnd() {
         if (getBricksLeft() <= 0) {
             pauseGame();
+
+            // play sound
+            Util.playSound(ClipCache.getClip("winLevel"));
+
             resetSprites();
             setStartListener();
             startNextLevel();
+        }
+    }
+
+    public void checkGameOver() {
+        if (getLives() == 0) {// game lost
+            pauseGame();
+            stopThreads();
+            // play sound
+            Util.playSound(ClipCache.getClip("gameOver"));
+            getStartPage().changeCard("splashCanvas");
         }
     }
 

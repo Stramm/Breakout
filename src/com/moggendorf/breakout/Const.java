@@ -17,13 +17,22 @@ public class Const {
 
     // ImageCache
     public static final String IMAGE_PATH = "images";
-    public static String[] IMAGE_NAMES = new String[] {
+    public static final String[] IMAGE_NAMES = new String[] {
             "paddle", "bigPaddle", "smallPaddle", "ball", "logo", // paddle and ball
             "brickBlue", "brickGreen", "brickLightBlue", "brickOrange", "brickPurple", "brickRed", "brickWhite",
             "brickYellow", "brickSilver", "brickGold", // all the bricks
             "powerUpExtraLive", "powerUpEnlargePaddle", "powerUpReducePaddle", "powerUpWall", "powerUpTriBall",
             "powerUpSlow", "powerUpGlue", "powerUpGun"// the powerUps
     };
+
+    // ClipCache
+
+    public static final String CLIP_PATH = "clips";
+    public static final String[] CLIP_NAMES = new String[] {
+            "initCache", "hitBrick", "hitGold", "hitPaddle", "hitSilver", "hitWall", "laser", "yeah", "ballLost",
+            "gameOver", "winLevel"
+    };
+
 
     // Button init
     public final static Dimension BUTTON_DIMENSION = new Dimension(200, 60);
