@@ -31,7 +31,7 @@ public class SplashCanvas extends JPanel {
         buttonPanel.setBackground(Color.BLACK);
         buttonPanel.add(Util.initButton("Start", buttonFont, buttonDimension, buttonColor, al));
         buttonPanel.add(Util.initButton("Settings", buttonFont, buttonDimension, buttonColor, al));
-        buttonPanel.add(Util.initButton("HighScore", buttonFont, buttonDimension, buttonColor, al));
+        buttonPanel.add(Util.initButton("High Score", buttonFont, buttonDimension, buttonColor, al));
 
         add(buttonPanel, BorderLayout.SOUTH);
     }
@@ -63,7 +63,7 @@ public class SplashCanvas extends JPanel {
                     // startPage.changeCard("settingsCanvas");
                     break;
                 case "High Score":
-                    // startPage.changeCard("highScoreCanvas");
+                    startPage.changeCard("highScoreCanvas");
                     break;
             }
         }

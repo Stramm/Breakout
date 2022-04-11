@@ -66,8 +66,15 @@ public class Const {
     public static final Color POWER_UP_COLOR_LASER_BEAM = new Color(255, 248, 165, 224);
 
     // score
-
     public final static Font SCORE_FONT = new Font("SansSerif", Font.ITALIC & Font.BOLD, 22);
     public final static Color SCORE_COLOR = new Color(150, 150, 150);
+
+    // high score
+    public static final int HIGH_SCORE_MAX_ENTRY = 10;
+    public static final String HIGH_SCORE_FILE_NAME = "highScore.txt";
+    public static final Font HIGH_SCORE_BORDER_FONT = new Font("SansSerif", Font.PLAIN, 18);
+    public static final int HIGH_SCORE_MARGIN = 40;
+
+
 
 }

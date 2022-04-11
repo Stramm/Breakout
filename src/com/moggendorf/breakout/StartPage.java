@@ -8,6 +8,7 @@ public class StartPage extends JPanel {
     private GameCanvas gameCanvas;
     private SettingsCanvas settingsCanvas;
     private SplashCanvas splashCanvas;
+    private HighScoreCanvas highScoreCanvas;
     private CardLayout cardLayout;
 
     public StartPage() {
@@ -20,10 +21,12 @@ public class StartPage extends JPanel {
         splashCanvas = new SplashCanvas(this);
         settingsCanvas = new SettingsCanvas(this);
         gameCanvas = new GameCanvas(this);
+        highScoreCanvas = new HighScoreCanvas(this);
 
         add(splashCanvas, "splashCanvas");
         add(settingsCanvas, "settingsCanvas");
         add(gameCanvas, "gameCanvas");
+        add(highScoreCanvas, "highScoreCanvas");
     }
 
     public void changeCard(String constraint) {
@@ -32,6 +35,10 @@ public class StartPage extends JPanel {
 
     public GameCanvas getGameCanvas() {
         return gameCanvas;
+    }
+
+    public HighScoreCanvas getHighScoreCanvas() {
+        return highScoreCanvas;
     }
 
     public SettingsCanvas getSettingsCanvas() {

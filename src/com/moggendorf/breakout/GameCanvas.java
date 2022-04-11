@@ -4,12 +4,13 @@ package com.moggendorf.breakout;
 import com.moggendorf.breakout.listeners.PaddleGlueListener;
 import com.moggendorf.breakout.listeners.PaddlePlayListener;
 import com.moggendorf.breakout.listeners.PaddleStartListener;
-import com.moggendorf.breakout.powerups.*;
+import com.moggendorf.breakout.powerups.HookFactory;
+import com.moggendorf.breakout.powerups.NoPowerUp;
+import com.moggendorf.breakout.powerups.PowerUp;
 import com.moggendorf.breakout.sprites.Ball;
 import com.moggendorf.breakout.sprites.Brick;
 import com.moggendorf.breakout.sprites.Paddle;
 
-import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -164,9 +165,24 @@ public class GameCanvas extends AbstractGameCanvas {
         if (getLives() == 0) {// game lost
             pauseGame();
             stopThreads();
+
             // play sound
             Util.playSound(ClipCache.getClip("gameOver"));
-            getStartPage().changeCard("splashCanvas");
+
+            // check high score
+
+            HighScore hs = new HighScore();
+            if (hs.tryHighScore(getScore())) {
+                //String input = JOptionPane.showInputDialog( null, "Please enter your name!","New high score!!!", JOptionPane.INFORMATION_MESSAGE);
+                // String input = null;
+                // hs.addHighScore(input == null || input.isEmpty() ? "no name" : input, getScore());
+                // hs.getHighScores().forEach(e -> System.out.format("%-15s %12d%n", e.getName(), e.getScore()));
+                getStartPage().getHighScoreCanvas().getInputPanel().setVisible(true);
+                getStartPage().getHighScoreCanvas().getButtonPanel().setVisible(false);
+                getStartPage().changeCard("highScoreCanvas");
+            } else
+                // switch to splashCard
+                getStartPage().changeCard("splashCanvas");
         }
     }
 
